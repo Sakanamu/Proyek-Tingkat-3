@@ -1,4 +1,26 @@
 <?php
+    require 'koneksi/koneksi.php';
+
+    if (isset($_POST['simpan'])) {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $name = $_POST['name'];
+        $phone = $_POST['phone'];
+
+        $sql = "INSERT INTO user (email,password,name,phone) VALUES ('$email','$password','$name','$phone')";
+        $execute = mysqli_query($koneksi,$sql);
+        if ($execute) {
+            echo '<script>alert("Berhasil register akun, silahkan login !")</script>';
+            echo "<meta http-equiv='refresh' content='0 url=Sign_in.php'>";
+        }else{
+            // echo "gagal";
+            echo '<script>alert("Gagal register, ulang kembali !")</script>';
+            echo "<meta http-equiv='refresh' content='0 url=Sign_up.php'>";
+        }
+    }
+
+    $sql = "SELECT * FROM user";
+    $execute = mysqli_query($koneksi,$sql);
 
 ?>
 
@@ -6,52 +28,63 @@
 <html>
     <head>
         <title>Sign Up Page</title>
-    </head>
+        <link rel="stylesheet" type="text/css" href="asset/css/bootstrap.css">
+        <script type="text/javascript" src="asset/js/jquery.js"></script>
+        <script type="text/javascript" src="asset/js/bootstrap.js"></script>
+        <!-- Data Tables -->
+        <script type="text/javascript" src="asset/DataTables/media/js/jquery.dataTables.js"></script>
+        <link rel="stylesheet" type="text/css" href="asset/DataTables/media/css/jquery.dataTables.css">
+        <link rel="stylesheet" type="text/css" href="asset/DataTables/media/css/dataTables.bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="asset/DataTables/media/css/dataTables.bootstrap.min.css">
+        <script type="text/javascript" src="asset/DataTables/media/js/dataTables.bootstrap.min.js"></script>
+        </head>
 
     <body>
         <div id="box">
-            <form method="post" style="text-align: center;">
-                <h2 style = "color : white">LOGIN</h2>
-                <input type="text" name="Email" placeholder="Email" id="email" >
-                <br><br>
-                <input type="password" name="Password" placeholder="Password" id="password">
-                <br><br>
-                <input type="text" name="Name" placeholder="Name" id="name">
-                <br><br>
-                <input type="number" name="Phone" placeholder="Phone" id="phone">
-                <br><br>
-                <input type="submit" value="Sign Up" id="signUp">
-                <br>
-                <p style =" font-size: 15px;">Already have an account yet?
+            <div class="formregis col-md-6 col-md-offset-3">
+                <form method="post" style="text-align: center;">
+                    <div class="row">
+                    <div class=" col-md-10 col-md-offset-1">
+                        <h2 style = "color : white">Register</h2><br>
+                        <input type="text" class="form-control" name="email" placeholder="Email" id="email" >
+                        <br><br>
+                        <input type="password" class="form-control" name="password" placeholder="Password" id="password">
+                        <br><br>
+                        <input type="text" class="form-control" name="name" placeholder="Name" id="name">
+                        <br><br>
+                        <input type="text" class="form-control" name="phone" placeholder="Phone" id="phone">
+                        <br><br>
+                        <!-- <input type="submit" value="Sign Up" id="signUp"> -->
+                        <button class="btn btn-md btn-info form-control" name="simpan" style="float: left;"><b>Sign Up</b> </button>
+                        <br>
+                        </p>
+                    </div>
+                    </div>
+                </form><br/>
+                <p style ="color: #D6D6D6; text-align: center; font-size: 15px;">Already have an account yet?
                 <a href="sign_in.php" style ="color : white; font-weight: bold;">Sign in</a>
-                </p>
-                
-            </form>
-        
+            </div>
         </div>
     </body>
     <style>
        
         body{
-          
             background-image: url('Image/Damri_Tracker.jpeg');
             background-repeat : no-repeat;
             background-attachment: fixed;
             background-size: cover;
         }
-        form{
-            height: 450px;
-            width: 500px;
+
+        .formregis{
+            /*height: 450px;
+            width: 500px;*/
             background-color: rgba(black,0.13);
             position: absolute;
-            transform: translate(-50%,-50%);
-            top: 50%;
-            left: 50%;
-            border-radius: 10px;
+            margin-top: 100px;
+            border-radius: 20px;
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255,255,255,0.1);
             box-shadow: 0 0 40px rgba(8,7,16,0.6);
-            padding: 50px 35px;
             }
         input::placeholder{ 
             color: white; 
