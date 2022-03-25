@@ -1,13 +1,21 @@
-<?php
-    require 'koneksi/koneksi.php';
-
+<?php 
+ 
+include 'koneksi/koneksi.php';
+ 
+error_reporting(0);
+ 
+session_start();
+ 
+if (isset($_SESSION['username'])) {
+    header("Location: sign_in.php");
+}
     if (isset($_POST['simpan'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $name = $_POST['name'];
+        $username = $_POST['username'];
         $phone = $_POST['phone'];
 
-        $sql = "INSERT INTO user (email,password,name,phone) VALUES ('$email','$password','$name','$phone')";
+        $sql = "INSERT INTO user (email,password,username,phone) VALUES ('$email','$password','$username','$phone')";
         $execute = mysqli_query($koneksi,$sql);
         if ($execute) {
             echo '<script>alert("Berhasil register akun, silahkan login !")</script>';
@@ -50,7 +58,7 @@
                         <br><br>
                         <input type="password" class="form-control" name="password" placeholder="Password" id="password">
                         <br><br>
-                        <input type="text" class="form-control" name="name" placeholder="Name" id="name">
+                        <input type="text" class="form-control" name="username" placeholder="Name" id="username">
                         <br><br>
                         <input type="text" class="form-control" name="phone" placeholder="Phone" id="phone">
                         <br><br>
