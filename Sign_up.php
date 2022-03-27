@@ -1,21 +1,14 @@
 <?php 
  
-include 'koneksi/koneksi.php';
+require 'koneksi/koneksi.php';
  
-error_reporting(0);
- 
-session_start();
- 
-if (isset($_SESSION['username'])) {
-    header("Location: sign_in.php");
-}
     if (isset($_POST['simpan'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];
         $username = $_POST['username'];
         $phone = $_POST['phone'];
 
-        $sql = "INSERT INTO user (email,password,username,phone) VALUES ('$email','$password','$username','$phone')";
+        $sql = "INSERT INTO user (email,password,name,phone) VALUES ('$email','$password','$username','$phone')";
         $execute = mysqli_query($koneksi,$sql);
         if ($execute) {
             echo '<script>alert("Berhasil register akun, silahkan login !")</script>';
@@ -26,9 +19,6 @@ if (isset($_SESSION['username'])) {
             echo "<meta http-equiv='refresh' content='0 url=Sign_up.php'>";
         }
     }
-
-    $sql = "SELECT * FROM user";
-    $execute = mysqli_query($koneksi,$sql);
 
 ?>
 

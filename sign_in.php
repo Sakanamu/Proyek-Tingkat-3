@@ -1,27 +1,22 @@
 <?php 
  
-include 'koneksi/koneksi.php';
- 
-error_reporting(0);
- 
+require 'koneksi/koneksi.php';
 session_start();
- 
-if (isset($_SESSION['username'])) {
-    header("Location: index.php");
-}
- 
+
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
- 
-    $sql = "SELECT * FROM user WHERE email='$email' AND password='$password'";
-    $result = mysqli_query($conn, $sql);
-    if ($result->num_rows > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $_SESSION['username'] = $row['username'];
-        header("Location: index.php");
+
+    $login=mysqli_query($koneksi,"SELECT * FROM user WHERE email='$email' AND password='$password'");
+    $fetch=mysqli_fetch_array($login);
+
+    if($fetch['email'] >= 0){
+      // echo "<script>alert('empass udah bener nih')</script>"; //cek login
+      echo '<script>alert("Berhasil login !")</script>';
+      echo "<meta http-equiv='refresh' content='0 url=Sign_in.php'>"; 
+      //nanti di url nya kalo dashboard dah kelar, ganti url ke dashboard ya
     } else {
-        echo "<script>alert('Email atau password Anda salah. Silahkan coba lagi!')</script>";
+      echo "<script>alert('Username atau password salah!')</script>";
     }
 }
 
@@ -91,9 +86,9 @@ if (isset($_POST['submit'])) {
                     <div class="row">
                     <div class=" col-md-10 col-md-offset-1">
                         <h2 style = "color : white">Login</h2><br>
-                        <input type="email" class="form-control" name="email" placeholder="Email" id="email" value="<?php echo $email; ?>" required>
+                        <input type="email" class="form-control" name="email" placeholder="Email" id="email" required>
                         <br><br>
-                        <input type="password" class="form-control" placeholder="Password" name="password" value="<?php echo $_POST['password']; ?>" required>
+                        <input type="password" class="form-control" placeholder="Password" name="password" required>
                         <br><br>
                         <!-- <input type="submit" value="Sign Up" id="signUp"> -->
                         <button name="submit" class="btn btn-md btn-info form-control" style="float: left;"><b>Sign In</b> </button>
