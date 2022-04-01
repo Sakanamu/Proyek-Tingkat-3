@@ -1,113 +1,54 @@
-<!DOCTYPE html>
-<html>
+<?php 
+ 
 
-	<head>
-		<title>Profile Page</title>
-		<link rel="stylesheet" type="text/css" href="css/profile.css">
-	</head>
+ 
+if (!isset($_POST['email'])) {
+    header("Location: sign_in.php");
+}
+ 
+?>
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<title>Profile</title>
+</head>
 
 <body>
-<?php include ('session.php');?>
-
-	<div id="header">
-		<div class="head-view">
-			<ul>
-				<li><a href="home.php" title="Profile"><b>profile</b></a></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li><a href="timeline.php" title="<?php echo $username ?>"><label><?php echo $username ?></label></a></li>
-				<li><a href="home.php" title="Home"><label>Home</label></a></li>
-				<li><a href="profile.php" title="Profile"><label class="active">Profile</label></a></li>
-				<li><a href="photos.php" title="Settings"><label>Photos</label></a></li>
-				<li><a href="logout.php" title="Log out"><button class="btn-sign-in" value="Log out">Log out</button></a></li>
-			</ul>
+	<form action="" method="POST">
+	<div class="container-lg">
+		<div class="card">
+			<div class="card-header">
+				Profile
+			</div>
+			<div class="card-body">
+				<div class="form-group">
+				<input type="text" class="form-control" placeholder="Email" id="email" value="<?php echo $_SESSION['name']; ?>" " readonly>				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Email" id="email" value="<?php echo $_SESSION['email']; ?>" " readonly>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Nomor Telepon" id="telepon" value="<?php echo $_SESSION['phone']; ?>"  readonly>
+				</div>
+				<a href="#" class="btn btn-primary">Go somewhere</a>
+			</div>
 		</div>
 	</div>
-
-	<div id="container">
-	
-		<div id="left-nav">
-				
-				<div class="clip1">
-				<a href="updatephoto.php" title="Change Profile Picture"><img src="<?php echo $row['profile_picture'] ?>"><button>Update Picture</button></a>
-				
-				</div>
-
-				<div class="user-details">
-					<h3><?php echo $firstname ?>&nbsp;<?php echo $lastname ?></h3>
-					<h2><?php echo $username ?></h2>
-				</div>
-		</div>
-		
-		
-		
-		<div id="right-nav">
-			<h1>Personal Info</h1>
-			<hr />
-			<br />
-			<?php
-			include('includes/database.php');
-
-			$result=mysql_query("SELECT * FROM user where user_id='$id' ");
-			
-			while($test = mysql_fetch_array($result))
-			{
-				$id = $test['user_id'];	
-				echo " <div class='info-user'>";
-				echo " <div>";
-				echo " <label>Firstname</label>&nbsp;&nbsp;&nbsp;<b>".$test['firstname']."</b>";
-				echo "</div> ";
-				echo "<hr /> ";		
-				echo "<br /> ";		
-				echo " <div>";
-				echo " <label>Lastname</label>&nbsp;&nbsp;&nbsp;&nbsp;<b>".$test['lastname']."</b>";
-				echo "</div> ";
-				echo "<hr /> ";	
-				echo "<br /> ";		
-				echo " <div>";
-				echo " <label>Username</label>&nbsp;&nbsp;&nbsp;<b>".$test['username']."</b>";
-				echo "</div> ";
-				echo "<hr /> ";	
-				echo "<br /> ";		
-				echo " <div>";
-				echo " <label>Birthday</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>".$test['birthday']."</b>";
-				echo "</div> ";
-				echo "<hr /> ";	
-				echo "<br /> ";		
-				echo " <div>";
-				echo " <label>Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>".$test['gender']."</b>";
-				echo "</div> ";
-				echo "<hr /> ";	
-				echo "<br /> ";		
-				echo " <div>";
-				echo " <label>Number</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>".$test['number']."</b>";
-				echo "</div> ";
-				echo "<hr /> ";	
-				echo "<br /> ";	
-				echo "</div> ";
-				echo "<br /> ";		
-				echo " <div class='edit-info'>";
-				echo " <a href ='edit_profile.php?user_id=$id'><button>Edit Profile</button></a>";
-				echo "</div> ";
-				echo "<br /> ";	
-				echo "<br /> ";	
-			}
-			?>
-			
-		</div>
-
-	
-		</div>
-		
-
-	
-		
-	</div>
-
+</form>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"ntegrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+	</script>
 </body>
 
 </html>
