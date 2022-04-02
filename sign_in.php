@@ -3,20 +3,25 @@
 require 'koneksi/koneksi.php';
 session_start();
 
+if (isset($_SESSION['email'])) {
+    header("Location: homepage.php");
+}
+
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
     $login=mysqli_query($koneksi,"SELECT * FROM user WHERE email='$email' AND password='$password'");
-    $fetch=mysqli_fetch_array($login);
 
-    if($fetch['email'] >= 0){
-      // echo "<script>alert('empass udah bener nih')</script>"; //cek login
-      echo '<script>alert("Berhasil login !")</script>';
-      echo "<meta http-equiv='refresh' content='0 url=Sign_in.php'>"; 
-      //nanti di url nya kalo dashboard dah kelar, ganti url ke dashboard ya
+    if ($login->num_rows > 0) {
+        $row = mysqli_fetch_assoc($login);
+        $_SESSION['email'] = $row['email'];
+        $_SESSION['name'] = $row['name'];
+        // header("Location: homepage.php");
+        echo '<script>alert("Berhasil login !")</script>';
+        echo "<meta http-equiv='refresh' content='0 url=homepage.php'>";
     } else {
-      echo "<script>alert('Username atau password salah!')</script>";
+        echo "<script>alert('Email atau password Anda salah. Silahkan coba lagi!')</script>";
     }
 }
 
@@ -85,7 +90,7 @@ if (isset($_POST['submit'])) {
                 <form action="" method="POST" style="text-align: center;">
                     <div class="row">
                     <div class=" col-md-10 col-md-offset-1">
-                        <h2 style = "color : white">Login</h2><br>
+                        <h2 style = "color : white">Sign In</h2><br>
                         <input type="email" class="form-control" name="email" placeholder="Email" id="email" required>
                         <br><br>
                         <input type="password" class="form-control" placeholder="Password" name="password" required>

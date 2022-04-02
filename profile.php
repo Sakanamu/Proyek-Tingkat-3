@@ -1,54 +1,67 @@
 <?php 
- 
 
+require 'koneksi/koneksi.php'; 
+// include 'sign_in.php';
+
+session_start();
  
-if (!isset($_POST['email'])) {
-    header("Location: sign_in.php");
+if (!isset($_SESSION['email'])) {
+    echo '<script>alert("Anda harus login terlebih dahulu !")</script>';
+    echo "<meta http-equiv='refresh' content='0 url=sign_in.php'>";
 }
- 
+
+$pp=$_SESSION['email'];
+$query=mysqli_query($koneksi,"SELECT * FROM user WHERE email = '$pp'");
+$fetch=mysqli_fetch_array($query);
 ?>
-<!doctype html>
+ 
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-	<title>Profile</title>
+    <title>Profile</title>
+    <link rel="stylesheet" type="text/css" href="asset/css/bootstrap.css">
+    <script type="text/javascript" src="asset/js/jquery.js"></script>
+    <script type="text/javascript" src="asset/js/bootstrap.js"></script>
+        <!-- Data Tables -->
+    <script type="text/javascript" src="asset/DataTables/media/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="asset/DataTables/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="asset/DataTables/media/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="asset/DataTables/media/css/dataTables.bootstrap.min.css">
+    <script type="text/javascript" src="asset/DataTables/media/js/dataTables.bootstrap.min.js"></script>
 </head>
+<body style="margin: 0 auto;">
+    <nav class="navbar navbar-inverse" style="border-radius: 0px;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="homepage.php">Damtrack</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="#">Schedule</a></li>
+                    <li><a href="#">Halte</a></li>
+                </ul>
 
-<body>
-	<form action="" method="POST">
-	<div class="container-lg">
-		<div class="card">
-			<div class="card-header">
-				Profile
-			</div>
-			<div class="card-body">
-				<div class="form-group">
-				<input type="text" class="form-control" placeholder="Email" id="email" value="<?php echo $_SESSION['name']; ?>" " readonly>				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Email" id="email" value="<?php echo $_SESSION['email']; ?>" " readonly>
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Nomor Telepon" id="telepon" value="<?php echo $_SESSION['phone']; ?>"  readonly>
-				</div>
-				<a href="#" class="btn btn-primary">Go somewhere</a>
-			</div>
-		</div>
-	</div>
-</form>
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-	</script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-	</script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"ntegrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-	</script>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="admin.php"><span class="glyphicon glyphicon-user"></span> <?php echo "Selamat Datang, " . $_SESSION['name'] ." !"; ?> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="logout.php">Logout</a></li>
+                            <li><a href="#">Profile</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <h1>sementara guys, dah ngantuk jd segini aja dlu</h1>
+    <p>nama nich: <?=$fetch['name'] ?></p>
+    <p>email nich: <?=$fetch['email'] ?></p>
+    <p>phone: <?=$fetch['phone'] ?></p>
+
 </body>
-
 </html>

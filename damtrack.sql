@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Mar 2022 pada 07.06
+-- Waktu pembuatan: 02 Apr 2022 pada 22.26
 -- Versi server: 10.4.19-MariaDB
 -- Versi PHP: 5.6.40
 
@@ -30,9 +30,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `name` varchar(50) NOT NULL,
   `phone` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -41,7 +41,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `password`, `name`, `phone`) VALUES
-(1, 'dandakomang@gmail.com', '01122001', 'danda', '82267396716');
+(1, 'dandakomang@gmail.com', '01122001', 'danda', '082267396716'),
+(2, 'dandakomang09@gmail.com', 'ddd', 'doni', '082267396716'),
+(3, 'bbb@gmail.com', 'ddd', 'bbb', '082267396716'),
+(4, 'sss@gmail.com', 'ddd', 'damri', '082267396716');
 
 --
 -- Indexes for dumped tables
@@ -61,7 +64,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
